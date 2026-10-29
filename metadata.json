@@ -1,0 +1,6 @@
+{
+  "name": "Life in Pixels",
+  "description": "A personal life journal and daily pixel tracker. Transform your life into a living visual grid of days, memories, and mindful reflections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

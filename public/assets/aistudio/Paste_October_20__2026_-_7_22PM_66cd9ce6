@@ -1,0 +1,957 @@
+# Project: Life in Pixels — A Personal Life Journal and Daily Pixel Tracker
+
+Act as a senior mobile application engineer, product designer, UX researcher, and design systems specialist.
+
+Build a complete, production-quality mobile application called **Life in Pixels**.
+
+The app transforms a person's life into a visual grid of days. Every day becomes a small, personalized pixel whose color is determined by the user's daily check-in. Each pixel can contain feelings, ratings, personal notes, memories, and optional photos.
+
+Over time, the grid becomes a living visual record of the user's life: the good days, difficult days, ordinary days, meaningful moments, personal growth, and everything in between.
+
+This is not merely a mood tracker, habit tracker, calendar, or notes application. Its defining experience is the connection between **daily reflection, meaningful personal records, and a beautiful long-term visualization of life**.
+
+The app should feel intimate, thoughtful, calming, tactile, and worth returning to every day.
+
+**Build a real, functional mobile application. Do not deliver only a landing page, static screens, or a Figma-like mockup.**
+
+---
+
+# 1. Technology and Project Setup
+
+Build the application using:
+
+- React Native
+- Expo
+- TypeScript
+- Expo Router for navigation
+- A suitable state-management solution such as Zustand
+- Expo-compatible local persistence, using SQLite for structured records and local file storage for photos where appropriate
+- React Native Reanimated for subtle animations where needed
+- Expo Haptics for optional, restrained tactile feedback
+- Lucide React Native or another compatible icon library
+
+Use compatible, stable package versions and follow current Expo conventions.
+
+The application must work without requiring a backend, paid APIs, API keys, or an account.
+
+Prioritize Android compatibility and ensure the architecture also supports iOS. The code should be maintainable, modular, and ready for further development.
+
+If running in an environment that cannot compile or install a native mobile app, implement the complete Expo project and provide clear instructions for testing it on an Android device or emulator.
+
+Do not switch to a website-only implementation unless explicitly required by the execution environment.
+
+# 2. Product Philosophy
+
+Follow these principles throughout the application.
+
+1. Every day matters, including ordinary days.
+2. A difficult day is not a failure.
+3. A color is a personal representation, not an objective judgment.
+4. Daily reflection should be quick, optional, and non-judgmental.
+5. Personal memories belong to the user.
+6. Users must be able to edit their records and correct mistakes.
+7. The app must never claim to predict the user's lifespan.
+8. Avoid streak pressure, guilt-inducing notifications, competitive leaderboards, and manipulative engagement mechanics.
+9. Do not force users to answer every survey question.
+10. Make the experience useful even if someone records only a few days each month.
+
+The product should encourage reflection without turning life into a productivity score.
+
+# 3. Visual Identity — The Softly Design System
+
+Use the following design direction as the foundation of the entire mobile application.
+
+The visual style is **Digital Wellness meets Gen-Z Lifestyle aesthetics**, with warm desaturated pastels, tactile surfaces, delicate grain, rounded geometry, restrained motion, and editorial typography.
+
+It should feel like a beautiful personal journal made digital.
+
+## Color palette
+
+Use these exact core colors:
+
+- Warm ivory background: #FDFCF8
+- Sage: #E8EFE8
+- Lavender: #EFEDF4
+- Coral: #FFB7B2
+- Primary text: #292524
+- Muted text: #78716C
+- White surfaces: #FFFFFF
+- Subtle borders: warm, light stone tones
+
+Use coral for important actions and selected states, sage and lavender for supporting surfaces, and warm ivory as the main background.
+
+Do not make every component coral. Use color with intention.
+
+Ensure text contrast and accessibility. Where pastel surfaces are too light for readable text, use the dark text color.
+
+## Typography
+
+Use:
+
+- Outfit as the primary sans-serif font.
+- Reenie Beanie as an optional handwritten accent font.
+
+Use Outfit for navigation, body text, controls, labels, statistics, and headings.
+
+Use Reenie Beanie sparingly for expressive phrases, personal reflections, and small decorative accents. Never use it for essential controls, long paragraphs, or important numeric information.
+
+Use sentence case. Avoid excessive uppercase text.
+
+Create a clear typography scale with generous spacing and comfortable mobile readability.
+
+## Shape language
+
+Use rounded corners inspired by physical notebooks, paper cards, and soft objects.
+
+- Small controls: 12–16px radius.
+- Cards: approximately 20–28px radius.
+- Featured surfaces: approximately 28–36px radius.
+- Buttons: pill-shaped where appropriate.
+
+Do not give every tiny element an enormous radius. Use a coherent system.
+
+## Texture and depth
+
+Introduce a subtle paper-like grain texture using a lightweight local SVG or another performant, locally available texture.
+
+IMPORTANT: The grain overlay must be subtle and visually restrained. The reference theme mentions a 0.35 opacity grain layer, but do not apply that value blindly to the mobile app. A strong 35% full-screen noise layer can overwhelm text and artwork. Tune the actual visual opacity to a barely perceptible level, approximately 3–8% as an initial target.
+
+Use soft shadows such as:
+
+0 4px 20px -2px rgba(0,0,0,0.05)
+
+Use blurred pastel blobs only in selected empty states, onboarding screens, or decorative backgrounds. Do not place giant blurred gradients behind every screen.
+
+Respect device safe areas, system navigation, keyboard behavior, and screen sizes.
+
+# 4. Anti-AI-Slop Design Rules — Extremely Important
+
+The result must not look like a generic AI-generated mobile dashboard.
+
+Do not produce the typical AI-generated design consisting of:
+- A purple-to-blue gradient background.
+- Glassmorphism cards everywhere.
+- Floating glowing orbs on every screen.
+- Huge statistics cards that dominate the interface.
+- Repeated rounded rectangles with identical layouts.
+- Random decorative icons without meaning.
+- Excessive emojis replacing proper iconography.
+- Generic welcome screens with meaningless motivational slogans.
+- Overuse of gradients, shadows, blur, and animation.
+- Fake charts, meaningless percentages, and invented user data.
+- Excessive empty space that makes functional screens feel unfinished.
+- A web dashboard squeezed into a mobile viewport.
+- Fake buttons, nonfunctional controls, or decorative interactions.
+- Unnecessary bottom sheets, popups, and onboarding steps.
+- A separate card for every label, value, and piece of text.
+
+Instead:
+
+- Design the app around its unique life-grid visualization.
+- Use a deliberate visual hierarchy and a limited set of reusable components.
+- Make the actual day pixels visually prominent.
+- Let the artwork, timeline, and written memories create the personality.
+- Use asymmetrical compositions selectively where they improve the experience.
+- Use typography and spacing rather than decorative effects to create hierarchy.
+- Make important actions obvious without making every button visually loud.
+- Use animations only when they communicate a state change or make an interaction feel natural.
+- Make the daily check-in feel like writing in a private journal.
+- Give every screen a clear purpose.
+- Make empty states thoughtful and functional, not generic illustrations with slogans.
+- Keep navigation predictable and touch targets comfortable.
+
+Before finalizing a screen, ask: "Would this design still feel distinctive if all gradients and shadows were removed?"
+
+If the answer is no, improve the composition and hierarchy.
+
+Do not copy a generic SaaS dashboard or the original Softly desktop landing-page layout. Adapt only its visual language to a native mobile experience.
+
+# 5. Main Navigation
+
+Use a simple mobile bottom navigation bar with four primary destinations:
+
+1. Today
+2. My Life
+3. Memories
+4. Insights
+
+Place Settings inside the profile or settings area rather than adding unnecessary navigation items.
+
+Use recognizable icons, concise labels, and a restrained selected state.
+
+The navigation must respect safe areas and not cover scrollable content.
+
+Avoid desktop-style sidebars, horizontal desktop navigation, and oversized navigation bars.
+
+# 6. Onboarding Experience
+
+Build a short, welcoming onboarding flow.
+
+## Screen 1: Introduction
+
+Introduce the concept with a beautiful preview of a grid containing differently colored day pixels.
+
+Suggested message:
+
+"Your life, one day at a time."
+
+Supporting copy:
+
+"Give each day a little space. Over time, the small moments become a story only you can tell."
+
+Keep the screen visually distinctive and minimal.
+
+## Screen 2: Basic setup
+
+Ask for:
+- Preferred display name, optional.
+- Birth date.
+- Preferred first day of the week.
+- Whether the user wants to use a lifetime grid or begin with a smaller calendar view.
+
+Explain why the birth date is requested. Allow the user to skip it and still use the daily journal.
+
+Never require a birth date merely to complete a daily check-in.
+
+## Screen 3: Color preferences
+
+Allow the user to select a visual theme for their day pixels.
+
+Include several accessible palettes, for example:
+
+- Softly Pastel
+- Botanical
+- Lavender Dreams
+- Warm Earth
+- Monochrome
+- Custom Palette
+
+The selected theme must change the grid's appearance without changing the underlying journal records.
+
+## Screen 4: Privacy explanation
+
+Explain in plain language that entries are stored locally by default and are not sent to a server.
+
+Do not claim that data is encrypted unless encryption has actually been implemented.
+
+Make it clear that uninstalling the app or clearing its data can result in loss of locally stored records unless the user has exported a backup.
+
+Allow the user to begin using the app immediately.
+
+Do not force account creation, email collection, or a subscription.
+
+# 7. Today Screen — The Daily Ritual
+
+The Today screen is the heart of the application.
+
+It should answer three questions immediately:
+
+- What day is it?
+- Have I recorded today?
+- What would I like to remember?
+
+## Layout
+
+Include:
+- A small date and weekday heading.
+- A warm greeting, used sparingly.
+- A preview of today's pixel and its current status.
+- A primary "Reflect on today" or "Complete today's pixel" action.
+- A compact summary of recent days.
+- A preview of the life grid or current month.
+- A small recent-memory section when relevant.
+
+When the user has not completed today's check-in, the interface should invite them to begin without making them feel behind.
+
+When the check-in is complete, show the saved day color and a quiet confirmation.
+
+Allow users to reopen and edit today's entry.
+
+Do not fill the screen with statistics, motivational quotations, streak counters, or unnecessary widgets.
+
+# 8. Daily Check-In Survey
+
+Implement a real multi-step daily survey.
+
+It must be responsive, touch-friendly, and quick to complete.
+
+Target approximately 30–60 seconds for the basic check-in. Longer reflections should remain optional.
+
+Use progressive disclosure: show a small number of questions per step rather than presenting a long form all at once.
+
+Include a visible but subtle progress indicator and allow users to move backward without losing their answers.
+
+## Question 1: Overall mood
+
+Ask:
+
+"How did today feel?"
+
+Offer five selectable options:
+
+- Wonderful
+- Good
+- Okay
+- Low
+- Difficult
+
+Give each option a carefully designed icon or small illustration and a color association.
+
+Do not rely solely on color or emoji to communicate the selected state. Include labels and an accessible selection indicator.
+
+## Question 2: Overall day rating
+
+Ask:
+
+"How would you rate today overall?"
+
+Use a scale of 1–5:
+
+1. Very difficult
+2. Difficult
+3. Mixed
+4. Good
+5. Wonderful
+
+Allow users to skip the rating.
+
+Do not assume that mood and overall day rating are always the same.
+
+## Question 3: Energy
+
+Ask:
+
+"How was your energy today?"
+
+Use a scale from 1–5, from drained to energized.
+
+## Question 4: Stress
+
+Ask:
+
+"How stressful did today feel?"
+
+Use a scale from 1–5, from calm to very stressful.
+
+Allow skipping.
+
+## Question 5: Meaning and connection
+
+Ask one or two optional questions selected from:
+
+- Did today feel meaningful?
+- Did you feel connected to people?
+- Did you spend time doing something you enjoy?
+- Did you learn or discover something?
+- Did you feel rested?
+- Did you accomplish something that mattered to you?
+
+Avoid turning every check-in into a lengthy questionnaire.
+
+Rotate optional prompts where useful, but keep the core questions consistent enough that users can compare their records over time.
+
+## Question 6: What happened today?
+
+Offer optional tags such as:
+
+- Work
+- Study
+- Family
+- Friends
+- Health and fitness
+- Travel
+- Creativity
+- Rest
+- Achievement
+- Something new
+- Difficult moment
+- Other
+
+Allow multiple selections and provide a way to add a custom tag.
+
+These tags must be user-controlled and editable.
+
+## Question 7: Personal reflection
+
+Ask:
+
+"What would you like to remember about today?"
+
+Provide a multiline text input.
+
+Examples of what a person might record:
+- Something funny someone said.
+- A difficult conversation.
+- A new place they visited.
+- A personal achievement.
+- A small moment that made them happy.
+- An ordinary day they want to remember.
+
+Offer optional prompts, but never generate fake memories.
+
+## Question 8: Optional photo
+
+Allow the user to attach a photo from their device.
+
+This feature must be optional. Store the photo locally and link it to the relevant day.
+
+Handle permissions correctly and provide useful fallbacks if the user denies access.
+
+## Check-in completion
+
+At the end, show a preview of the day pixel, the selected mood, and a short recap.
+
+Provide:
+- Save day.
+- Go back and edit.
+- Skip optional questions.
+- Cancel without saving changes.
+- Edit an existing entry.
+
+After saving, show a subtle, satisfying animation as the day's pixel appears in the grid.
+
+Avoid fireworks, confetti, loud success banners, or excessive gamification.
+
+# 9. Daily Pixel Color Engine
+
+This is a defining product feature. Implement real, deterministic logic rather than randomly assigning colors.
+
+The pixel's color must be influenced by the user's recorded experience.
+
+## Separate emotional meaning from decorative color
+
+Store the original survey answers separately from the chosen display color.
+
+For example:
+- Mood: low.
+- Overall rating: 3/5.
+- Energy: 2/5.
+- Stress: 4/5.
+- Tags: work, family.
+- Reflection: user-written text.
+- Display color: selected palette color.
+
+Never discard the underlying answers when the user changes their visual theme.
+
+## Default color logic
+
+Start with the user's selected mood as the primary influence.
+
+Suggested default mood mapping:
+- Wonderful: warm golden pastel.
+- Good: soft coral or peach.
+- Okay: sage green.
+- Low: muted lavender.
+- Difficult: soft blue-grey.
+
+Treat this as an initial default palette, not a universal emotional truth.
+
+Use the overall rating, energy, and stress to influence secondary properties such as color intensity, saturation, or a small decorative indicator.
+
+Do not automatically classify a difficult day as completely negative or a wonderful day as perfect.
+
+Do not invent psychological conclusions from survey data.
+
+## Customization
+
+Allow users to:
+- Choose their own mood-to-color mapping.
+- Change the color of an individual day.
+- Choose a monochrome or pastel palette.
+- Use patterns or small symbols for accessibility.
+- Disable additional indicators for a simpler grid.
+- Restore the default palette.
+
+Changing the color of a day must not change its mood, ratings, or written entry.
+
+## Transparency
+
+In settings, explain how the app determines the default pixel color.
+
+The algorithm should be understandable and consistent. Never describe it as AI analysis unless a genuine, optional AI feature is implemented later.
+
+# 10. My Life Screen — The Life Grid
+
+This is the signature visualization.
+
+Represent a user's recorded days as a beautiful, zoomable grid.
+
+Support several viewing modes:
+
+- Current month.
+- Full year.
+- Multiple years.
+- Lifetime view, when a birth date or custom start date is available.
+
+Each day should correspond to a distinct cell.
+
+Use a consistent calendar layout. Support the user's chosen first day of the week.
+
+## Pixel states
+
+Visually distinguish:
+- A day with a completed check-in.
+- A day with a partial entry.
+- A day with no entry.
+- The current day.
+- A day containing a milestone.
+- A day with a linked photo or significant memory, if enabled.
+
+Use the user's theme colors for recorded days.
+
+Unrecorded days must be visually neutral. Never assume an unrecorded day was bad or good.
+
+Future dates should be visually distinct from both recorded and unrecorded past dates.
+
+## Interaction
+
+When the user taps a day:
+- Open its date and status.
+- Show the saved mood and ratings, if present.
+- Display its reflection and tags.
+- Display any linked photo or milestone.
+- Provide actions to add, edit, or view the entry.
+
+For an unrecorded past day, allow the user to add a retrospective entry.
+
+For a future day, do not allow the app to imply that its mood or life outcome is known.
+
+Use smooth zooming or transitions between month, year, and lifetime views where practical.
+
+Keep individual pixels large enough to tap in month view. In a lifetime view, support a larger detail sheet or a separate month-level interaction rather than forcing tiny touch targets.
+
+## Grid performance
+
+Do not create thousands of expensive, individually animated views.
+
+Use an appropriate grid implementation, virtualization, or a lightweight rendering approach for long timelines.
+
+Keep the visualization responsive on typical mid-range Android devices.
+
+# 11. Lifetime and Planning Horizon
+
+When the user provides a birth date, calculate elapsed days and weeks using calendar dates and the device's local date.
+
+Allow the user to choose a planning horizon, for example:
+- 70 years.
+- 80 years.
+- 90 years.
+- 100 years.
+- A custom horizon.
+
+Clearly label these as user-selected visualization scenarios.
+
+Do not call future cells "remaining life" in a way that suggests certainty.
+
+Use language such as:
+- "Your selected timeline."
+- "Future weeks in this scenario."
+- "A visualization horizon, not a prediction."
+
+The user must be able to use the app without entering their birth date.
+
+Include a way to choose a custom start date for users who prefer tracking from a particular milestone or life chapter.
+
+# 12. Memories Screen
+
+Create a dedicated place for meaningful records.
+
+Include:
+- A chronological memory timeline.
+- Search by words in personal reflections.
+- Filtering by tags.
+- Filtering by mood or date range.
+- A view for favorite memories.
+- A view for milestones.
+- Optional photo-based memories.
+
+Allow users to add a memory without completing the full daily survey.
+
+Allow users to edit, delete, favorite, or attach a memory to a different date.
+
+Use the same warm, paper-inspired Softly visual language.
+
+Do not build a generic social feed.
+
+# 13. Goals and Milestones
+
+Support meaningful life events and personal goals.
+
+Examples:
+- Graduation.
+- Starting a job.
+- Moving to a new city.
+- Visiting a country.
+- Completing a personal project.
+- Learning a skill.
+- An important personal anniversary.
+
+Users should be able to create a milestone with:
+- Title.
+- Date.
+- Optional description.
+- Optional icon.
+- Optional color.
+- Optional category.
+
+A milestone should appear on the relevant date and be accessible from the life grid and memory timeline.
+
+Allow future goals to be displayed separately from past events.
+
+Never present a future goal as a completed memory.
+
+Keep the goal system lightweight. This is a life journal, not a full project-management application.
+
+# 14. Insights Screen
+
+Build a useful, visually restrained insights section based only on the user's actual saved records.
+
+Potential insights:
+- Number of days recorded.
+- Mood distribution across a selected period.
+- Average overall rating for periods with ratings.
+- Energy and stress trends.
+- Most frequently selected tags.
+- Favorite memories.
+- Monthly and yearly comparisons.
+- Days that felt meaningful.
+- Personal patterns across recorded entries.
+
+Use accessible charts and carefully labeled visualizations.
+
+Clearly indicate the date range and number of records included.
+
+Never invent missing data or silently treat unrecorded days as neutral, negative, or positive.
+
+Do not claim that a correlation establishes a cause.
+
+Do not diagnose depression, anxiety, burnout, or other medical conditions.
+
+If the user has recorded only a few days, show a useful explanation that more records are needed instead of producing misleading charts.
+
+Include a compact monthly recap generated from actual recorded data. Use deterministic summaries and simple statistics; no AI API is required.
+
+# 15. Daily Reminders
+
+Provide optional local notifications.
+
+Users should be able to:
+- Enable or disable reminders.
+- Choose a preferred time.
+- Change the reminder time.
+- Choose a gentle notification style.
+
+Use non-judgmental notification copy.
+
+Examples:
+- "A little moment for yourself, if you'd like."
+- "Want to remember anything about today?"
+- "Your day is yours to record."
+
+Never send guilt-inducing messages about missed days.
+
+Respect operating-system notification permissions. The application must remain fully usable when notifications are disabled.
+
+# 16. Export and Sharing
+
+Let users turn their personal records into beautiful visual artifacts.
+
+Implement:
+- Export a monthly grid as a PNG.
+- Export a yearly grid as a PNG.
+- Export a lifetime visualization as a high-resolution PNG.
+- Export a memory timeline where practical.
+- Export journal data as JSON.
+- Export a readable CSV for tabular records.
+- Offer a printable PDF or another print-friendly format if feasible.
+
+The exported design should include the user's chosen palette, a readable legend, a date range, and optional title or personal quote.
+
+Allow users to customize what appears in an export.
+
+Privacy must be the default:
+- Do not include personal notes unless the user explicitly selects them.
+- Do not include photos unless the user explicitly selects them.
+- Show a preview before sharing.
+- Do not upload exports to a server.
+
+Use native sharing functionality where available.
+
+If exporting to PDF or high-resolution artwork requires a library, use a compatible local implementation. Do not add a nonfunctional export button.
+
+# 17. Local Storage and Privacy
+
+The app should work without registration and store user data locally by default.
+
+Persist:
+- User preferences.
+- Daily check-ins.
+- Survey answers.
+- Daily pixel colors.
+- Personal reflections.
+- Tags.
+- Milestones.
+- Goals.
+- Photo references and local file information.
+- Export preferences.
+
+Use a robust local data model with stable IDs and appropriate date handling.
+
+Requirements:
+- Preserve existing records when the user changes themes.
+- Avoid duplicate entries for the same date unless the product explicitly supports multiple entries.
+- Allow a saved day to be edited.
+- Handle app restarts without losing saved data.
+- Provide data export and deletion controls.
+- Explain the consequences of deleting app data or uninstalling the app.
+
+Do not send journal content, photos, survey responses, or personal dates to external servers.
+
+Do not add analytics or tracking that collects personal journal content.
+
+If biometric locking is implemented, use appropriate platform-supported authentication. Do not pretend local data is encrypted merely because the app has a PIN screen.
+
+# 18. Data Model
+
+Create a strongly typed, versioned data model.
+
+A daily entry should support fields such as:
+
+- Unique entry ID.
+- Local calendar date.
+- Creation timestamp.
+- Last modified timestamp.
+- Mood selection.
+- Overall rating.
+- Energy rating.
+- Stress rating.
+- Optional meaning or connection responses.
+- Selected tags.
+- Optional written reflection.
+- Optional local photo references.
+- Selected pixel color.
+- Optional pattern or symbol.
+- Completion status.
+
+Create separate models for:
+- User settings.
+- Color themes.
+- Memories.
+- Milestones.
+- Goals.
+- Reminder preferences.
+
+Use local calendar dates consistently. Avoid timezone bugs that cause an entry to move to the previous or next day.
+
+Do not derive a person's age, lifespan, or emotional state from unreliable date or survey data.
+
+Include safe migrations for future data-model changes.
+
+# 19. Mobile Interaction and Motion
+
+The app should feel smooth and tactile.
+
+Use subtle animations for:
+- Selecting a mood.
+- Transitioning between survey steps.
+- Saving a day.
+- Revealing a newly recorded pixel.
+- Opening a memory.
+- Switching between grid views.
+
+Animations should be low velocity, purposeful, and short enough that the app never feels slow.
+
+Use gentle spring motion where appropriate.
+
+Use haptic feedback sparingly and provide a way to respect reduced-motion preferences.
+
+Respect keyboard dismissal, scrolling, safe areas, and touch target sizes.
+
+Avoid scroll-jacking, perpetual animations, flashing effects, and excessive screen transitions.
+
+# 20. Accessibility
+
+Implement:
+- Screen-reader labels.
+- Accessible descriptions for day pixels.
+- Text labels in addition to colors.
+- Good text contrast.
+- Large enough touch targets.
+- Keyboard support where applicable.
+- Reduced-motion support.
+- Accessible chart summaries.
+- Clear error and confirmation messages.
+
+Do not communicate emotional states through color alone.
+
+# 21. Empty States and Error Handling
+
+Design meaningful empty states for:
+- No check-ins yet.
+- No memories.
+- No milestones.
+- No insights available.
+- No search results.
+- No exported projects.
+
+Encourage the next useful action without making the user feel guilty.
+
+Handle:
+- Invalid dates.
+- Missing permissions.
+- Failed local saves.
+- Unavailable photos.
+- Corrupt imported files.
+- Export failures.
+- Notification scheduling failures.
+
+Provide helpful messages and preserve unsaved work wherever possible.
+
+# 22. Settings
+
+Include:
+- Profile and optional birth date.
+- Start date and timeline horizon.
+- Color theme selection.
+- Custom mood-color mapping.
+- Week-start preference.
+- Reminder settings.
+- Privacy information.
+- Data export.
+- Delete all personal data.
+- App appearance.
+- Reduced-motion preference.
+- About and version information.
+
+Require confirmation before destructive actions.
+
+# 23. Suggested Project Architecture
+
+Organize the code into clear, reusable modules.
+
+Example structure:
+
+app/
+  onboarding/
+  today/
+  life/
+  memories/
+  insights/
+  settings/
+
+src/
+  components/
+    common/
+    buttons/
+    cards/
+    typography/
+    pixel-grid/
+    survey/
+    charts/
+  features/
+    daily-checkin/
+    life-grid/
+    memories/
+    milestones/
+    goals/
+    insights/
+    export/
+    reminders/
+  database/
+  store/
+  hooks/
+  navigation/
+  theme/
+  types/
+  utils/
+
+Separate the survey logic, color-mapping algorithm, calendar calculations, persistence, rendering, and export functionality.
+
+Avoid building the entire app in one giant component.
+
+Do not introduce unnecessary dependencies or complex architecture for features that can be implemented simply.
+
+# 24. Development Plan
+
+Implement the app in phases, but continue beyond the first visual prototype.
+
+## Phase 1: Foundation
+
+- Initialize the Expo application.
+- Set up TypeScript and navigation.
+- Implement the Softly design system.
+- Build the Today screen.
+- Implement the daily survey.
+- Implement local data persistence.
+- Save, reopen, and edit daily entries.
+
+## Phase 2: Signature Life Grid
+
+- Build the calendar grid.
+- Implement mood-to-color mapping.
+- Support month, year, and lifetime views.
+- Implement day selection and entry details.
+- Add themes and custom colors.
+- Handle unrecorded and future dates correctly.
+
+## Phase 3: Personal Journal
+
+- Add memories and tags.
+- Add milestones and goals.
+- Add optional photo attachments.
+- Implement search and filtering.
+
+## Phase 4: Insights and Exports
+
+- Add statistics based on actual records.
+- Add monthly and yearly summaries.
+- Implement PNG and data exports.
+- Add a print-friendly export where feasible.
+
+## Phase 5: Polish
+
+- Implement optional reminders.
+- Improve accessibility.
+- Refine animations and haptics.
+- Test persistence and date handling.
+- Optimize the grid for longer timelines.
+- Verify behavior on typical Android devices.
+- Prepare iOS-compatible implementation where practical.
+
+# 25. Mandatory Testing
+
+After implementation, verify these workflows:
+
+1. Complete a daily survey and save the entry.
+2. Restart the app and verify that the entry persists.
+3. Edit the entry and verify that the pixel updates.
+4. Change the color theme and verify that the original answers remain intact.
+5. Open a recorded day and view its personal details.
+6. Add and edit a retrospective entry.
+7. Add a memory and milestone.
+8. Navigate between month, year, and lifetime views.
+9. Verify that future days are not treated as recorded days.
+10. Verify that missing check-ins do not receive fabricated mood values.
+11. Export a grid and verify that the image contains the correct data.
+12. Export and restore a data backup.
+13. Test invalid dates and failed permission requests.
+14. Verify that deleting data requires confirmation.
+15. Verify that all visible controls have real functionality.
+
+Run the available TypeScript checks, tests, and Expo build checks. Fix errors rather than hiding them.
+
+Provide concise instructions for starting the project and testing it on an Android device using Expo tooling.
+
+# Final Product Standard
+
+The final app should feel like a thoughtful, beautifully designed personal journal that someone could use for years.
+
+Its core loop is simple:
+
+**Reflect on your day → answer a few questions → write or save a memory → receive your day's pixel → see it become part of your life story.**
+
+Prioritize the quality of this experience over the number of features.
+
+The design must be recognizably Softly-inspired, warm, editorial, tactile, and distinctly mobile-first. Avoid AI-generated design clichés, generic dashboards, unnecessary complexity, and fake functionality.
+
+Start by inspecting the existing project if one exists. Preserve useful code. If the project is empty, initialize it and build the foundation first. Implement actual functionality progressively, and do not stop at the first attractive screen.
